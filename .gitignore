@@ -1,0 +1,12 @@
+# Default ignored files
+# /WebContent/js/
+/shelf/
+/workspace.xml
+/build/
+/.idea/
+/.metadata/
+/.settings/
+/build/
+/target/
+.project
+.tern-project

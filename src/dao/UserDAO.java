@@ -1,0 +1,60 @@
+package dao;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import javax.persistence.StoredProcedureQuery;
+
+import config.PersistenceConfig;
+import entity.User;
+
+@Singleton
+public class UserDAO extends GenericDAO<User> {
+
+	@Inject
+	public UserDAO(PersistenceConfig persistenceConfig) {
+		super(persistenceConfig.getEntityManagerFactory().createEntityManager(), User.class);
+	}
+
+	@Deprecated
+	public User update(User user, long lastAccessedTime) {
+		super.getEntityManager().getTransaction().begin();
+		try {
+			StoredProcedureQuery query = super.getEntityManager().createNamedStoredProcedureQuery("User.update_user");
+			query.setParameter("p_last_accessed_time", lastAccessedTime);
+			query.setParameter("p_user_id", user.getUserId());
+			query.setParameter("p_email", user.getEmail());
+			query.setParameter("p_password", user.getPassword());
+			query.setParameter("p_full_name", user.getFullName());
+			query.execute();
+			super.getEntityManager().getTransaction().commit();
+		} catch (Exception e) {
+			super.getEntityManager().getTransaction().rollback();
+			throw e;
+		} finally {
+			if (PersistenceConfig.CLEAR_CACHE) super.getEntityManager().clear();
+		}
+		return user;
+	}
+
+	public boolean checkUserCredential(String email, String password) {
+
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("email", email);
+		parameters.put("password", password);
+
+		List<User> user = (List<User>) super.findWithNamedQuery("User.findByEmailAndPassword", parameters, true);
+		
+		if (Objects.nonNull(user) && user.size()==1) {
+			return true;
+		}
+
+		return false;
+
+	}
+
+}

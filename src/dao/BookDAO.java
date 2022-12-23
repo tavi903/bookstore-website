@@ -3,7 +3,6 @@ package dao;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import config.PersistenceConfig;
@@ -12,9 +11,8 @@ import entity.Book;
 @Singleton
 public class BookDAO extends GenericDAO<Book> {
 
-	@Inject
-	public BookDAO(PersistenceConfig persistenceConfig) {
-		super(persistenceConfig.getEntityManagerFactory().createEntityManager(), Book.class);
+	public BookDAO() {
+		super(PersistenceConfig.getEntityManagerFactory(), Book.class);
 	}
 
 	public long countSearch(Map<String, Object> parameters) {
@@ -31,6 +29,14 @@ public class BookDAO extends GenericDAO<Book> {
 
 	public List<String> selectAuthors() {
 		return (List<String>) super.findWithNamedQuery("Book.selectAuthors", true);
+	}
+	
+	public float maxPrice() {
+		return (float) super.findWithNamedQuery("Book.maxPrice", false);
+	}
+	
+	public float minPrice() {
+		return (float) super.findWithNamedQuery("Book.minPrice", false);
 	}
 
 }

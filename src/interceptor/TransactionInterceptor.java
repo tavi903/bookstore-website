@@ -6,7 +6,6 @@ import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 import javax.persistence.EntityManager;
 
-import config.PersistenceConfig;
 import service.GenericService;
 
 @Transaction
@@ -30,8 +29,6 @@ public class TransactionInterceptor {
 		} catch (Exception e) {
 			entityManager.getTransaction().rollback();
 			throw e;
-		} finally {
-			if(PersistenceConfig.CLEAR_CACHE) entityManager.clear();
 		}
 		
 		return result;

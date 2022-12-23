@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.persistence.StoredProcedureQuery;
 
@@ -15,9 +14,8 @@ import entity.User;
 @Singleton
 public class UserDAO extends GenericDAO<User> {
 
-	@Inject
-	public UserDAO(PersistenceConfig persistenceConfig) {
-		super(persistenceConfig.getEntityManagerFactory().createEntityManager(), User.class);
+	public UserDAO() {
+		super(PersistenceConfig.getEntityManagerFactory(), User.class);
 	}
 
 	@Deprecated
@@ -35,9 +33,7 @@ public class UserDAO extends GenericDAO<User> {
 		} catch (Exception e) {
 			super.getEntityManager().getTransaction().rollback();
 			throw e;
-		} finally {
-			if (PersistenceConfig.CLEAR_CACHE) super.getEntityManager().clear();
-		}
+		} 
 		return user;
 	}
 

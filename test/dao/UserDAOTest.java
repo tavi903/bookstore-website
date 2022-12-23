@@ -1,38 +1,35 @@
 package dao;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validation;
 import javax.validation.Validator;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import config.PersistenceConfig;
 import entity.User;
 
-import static utils.ProjectUtils.*;
-
 public class UserDAOTest {
 	
 	private static UserDAO userDAO;
-	private static PersistenceConfig persistenceConfig;
 	private static EntityManager entityManager;
 	private static Validator validator;
 	
-	private static List<User> usersInDb = createList (
+	private static List<User> usersInDb = Arrays.asList(
 		new User("cesare@gmail.com", "AleaIactaEst", "Cesare Augusto"),
 		new User("nerone@gmail.com", "RomeOnFire", "Nerone Germanico"),
 		new User("aurelio@gmail.com", "Meditation", "Marco Aurelio")
@@ -41,18 +38,28 @@ public class UserDAOTest {
 	@BeforeClass
 	public static void setUpClass() {
 		
-		persistenceConfig = mock(PersistenceConfig.class);
-		Mockito.when(persistenceConfig.getEntityManagerFactory()).thenReturn(Persistence.createEntityManagerFactory("H2"));
-		userDAO = new UserDAO(persistenceConfig);
-		entityManager = userDAO.getEntityManager();
+		PersistenceConfig.setPersistenceUnit("H2");
+		
+		userDAO = new UserDAO();
 		
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
 			
 	}
 	
+	@Before
+	public void beginTransaction() {
+		entityManager = userDAO.getEntityManager();
+		entityManager.getTransaction().begin();
+	}
+	
+	@After
+	public void rollbackTransaction() {
+		entityManager.getTransaction().rollback();
+	}
+	
 	@Test
 	public void createUser() throws Exception {
-		entityManager.getTransaction().begin();
+		
 		User user = new User();
 		user.setEmail("diocleziano@gmail.com");
 		user.setFullName("Diocleziano");
@@ -60,7 +67,7 @@ public class UserDAOTest {
 		
 		User userSavedToDB = userDAO.create(user);
 		assertTrue(Objects.nonNull(userSavedToDB));
-		entityManager.getTransaction().rollback();
+		
 	}
 	
 	@Test(expected = ConstraintViolationException.class)
@@ -77,12 +84,10 @@ public class UserDAOTest {
 	
 	@Test
 	public void updateUser() throws Exception {
-		entityManager.getTransaction().begin();
 		User user = userDAO.find(1).get();
 		user.setEmail("cesare.augusto@gmail.com");
 		userDAO.update(user);
 		assertTrue(userDAO.find(1).get().equals(user));
-		entityManager.getTransaction().rollback();
 	}
 	
 	@Test
@@ -100,12 +105,10 @@ public class UserDAOTest {
 	
 	@Test
 	public void deleteUser() throws Exception {
-		entityManager.getTransaction().begin();
 		User user = userDAO.find(2).get();
 		userDAO.delete(user.getUserId());
 		Optional<User> userNotPresent = userDAO.find(user.getUserId());
 		assertFalse(userNotPresent.isPresent());
-		entityManager.getTransaction().rollback();
 	}
 	
 	@Test(expected = PersistenceException.class)

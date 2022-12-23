@@ -143,13 +143,14 @@
 
 </body>
 <script type="text/javascript">
-	$("#lowerRange").get(0).innerHTML=$("#lowerPrice").get(0).value==""?0:$("#lowerPrice").get(0).value;
-	$("#upperRange").get(0).innerHTML=$("#upperPrice").get(0).value==""?1000:$("#upperPrice").get(0).value;
+	$("#lowerRange").get(0).innerHTML=$("#lowerPrice").get(0).value==""?${minPrice}-0.1:$("#lowerPrice").get(0).value;
+	$("#upperRange").get(0).innerHTML=$("#upperPrice").get(0).value==""?${maxPrice}+0.1:$("#upperPrice").get(0).value;
 	$( "#slider" ).slider({
-		min: 0,
-		max: 1000,
+		min: ${minPrice}-0.1,
+		max: ${maxPrice}+0.1,
+		step: 0.05,
 		range: true,
-		values: [$("#lowerPrice").get(0).value==""?0:$("#lowerPrice").get(0).value, $("#upperPrice").get(0).value==""?1000:$("#upperPrice").get(0).value],
+		values: [$("#lowerPrice").get(0).value==""?${minPrice}-0.1:$("#lowerPrice").get(0).value, $("#upperPrice").get(0).value==""?${maxPrice}+0.1:$("#upperPrice").get(0).value],
 		classes: {
 			"ui-slider-range": "ui-corner-all slider-background"
 		},

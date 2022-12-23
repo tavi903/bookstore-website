@@ -1,8 +1,6 @@
 package utils;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import javax.servlet.RequestDispatcher;
@@ -35,12 +33,4 @@ public class ProjectUtils {
 		else return obj;
 	}
 	
-	public static <E> List<E> createList(E ... args) {
-		List<E> result = new ArrayList<E>();
-		for(E arg : args) {
-			result.add(arg);
-		}
-		return result;
-	}
-
 }

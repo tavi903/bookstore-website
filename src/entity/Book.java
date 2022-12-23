@@ -50,7 +50,10 @@ import lombok.Setter;
 			+ "AND b.category.categoryId = IFNULL(:category, b.category.categoryId) "
 			+ "ORDER BY b.title"),
 	@NamedQuery(name = "Book.selectTitles",  query = "SELECT DISTINCT b.title FROM Book b ORDER BY b.title"),
-	@NamedQuery(name = "Book.selectAuthors", query = "SELECT DISTINCT b.author FROM Book b ORDER BY b.author") })
+	@NamedQuery(name = "Book.selectAuthors", query = "SELECT DISTINCT b.author FROM Book b ORDER BY b.author"),
+	@NamedQuery(name = "Book.maxPrice", query = "SELECT MAX(b.price) FROM Book b"),
+	@NamedQuery(name = "Book.minPrice", query = "SELECT MIN(b.price) FROM Book b")
+})
 public class Book implements Serializable {
 
 	private static final long serialVersionUID = -2439382557636658867L;

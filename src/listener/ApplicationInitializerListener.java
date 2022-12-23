@@ -8,9 +8,10 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import cache.BookStoreWebsiteCache;
+import config.PersistenceConfig;
 
 /**
- * It reads the logging.properties file and associate the cache with the ServletContext
+ * It reads the logging.properties file, associate the cache with the ServletContext and initialize persistenceUnit
  */
 public class ApplicationInitializerListener implements ServletContextListener {
 	
@@ -25,6 +26,8 @@ public class ApplicationInitializerListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent servletContextEvent) {
 		
 		try {
+			
+			PersistenceConfig.setPersistenceUnit("BookStoreWebsite");
 			
 			String path = getClass().getResource("./../../logging.properties").getPath();
 			FileInputStream fileInputStream = new FileInputStream(path);

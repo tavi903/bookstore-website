@@ -1,6 +1,6 @@
 SET SCHEMA 'bookstoredb';
 
-CREATE TABLE `category` (
+CREATE TABLE IF NOT EXISTS `category` (
   `category_id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
   `flag_deleted` tinyint(1) NOT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE `category` (
   UNIQUE KEY `category_name_UNIQUE` (`name`)
 );
 
-CREATE TABLE `customer` (
+CREATE TABLE IF NOT EXISTS `customer` (
   `customer_id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(64) NOT NULL,
   `fullname` varchar(30) NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE `customer` (
   UNIQUE KEY `email_UNIQUE` (`email`)
 );
 
-CREATE TABLE `book` (
+CREATE TABLE IF NOT EXISTS `book` (
   `book_id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(128) NOT NULL,
   `author` varchar(64) NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE `book` (
   CONSTRAINT `category_fk` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`)
 );
 
-CREATE TABLE `book_order` (
+CREATE TABLE IF NOT EXISTS `book_order` (
   `order_id` int NOT NULL AUTO_INCREMENT,
   `customer_id` int NOT NULL,
   `order_date` datetime NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE `book_order` (
   CONSTRAINT `customer_fk_2` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`)
 );
 
-CREATE TABLE `order_detail` (
+CREATE TABLE IF NOT EXISTS `order_detail` (
   `order_id` int NOT NULL,
   `book_id` int NOT NULL,
   `quantity` int NOT NULL,
@@ -71,7 +71,7 @@ CREATE TABLE `order_detail` (
   CONSTRAINT `order_fk` FOREIGN KEY (`order_id`) REFERENCES `book_order` (`order_id`)
 );
 
-CREATE TABLE `review` (
+CREATE TABLE IF NOT EXISTS `review` (
   `review_id` int NOT NULL AUTO_INCREMENT,
   `book_id` int NOT NULL,
   `customer_id` int NOT NULL,
@@ -87,7 +87,7 @@ CREATE TABLE `review` (
   CONSTRAINT `customer_fk` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`)
 );
 
-CREATE TABLE `user` (
+CREATE TABLE IF NOT EXISTS `user` (
   `user_id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(30) NOT NULL,
   `password` varchar(16) NOT NULL,

@@ -10,7 +10,7 @@ public class ApplicationConfig {
 	
 	/* ------------------------ */
 	
-	/* Cache (Read Only) */
+	/* Cache */
 	
 	public static final int MINUTES_REFRESH = 10;
 

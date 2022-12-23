@@ -35,5 +35,13 @@ public class BookService extends GenericService<Book> {
 	public List<String> selectAuthors() {
 		return bookDAO.selectAuthors();
 	}
+	
+	public float maxPrice() {
+		return bookDAO.maxPrice();
+	}
+	
+	public float minPrice() {
+		return bookDAO.minPrice();
+	}
 
 }

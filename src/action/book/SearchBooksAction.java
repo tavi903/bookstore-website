@@ -1,6 +1,7 @@
 package action.book;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import entity.Book;
 import service.BookService;
 
 import static utils.ProjectUtils.*;
+import static org.apache.commons.lang3.StringUtils.isBlank;
 
 public class SearchBooksAction implements BaseAction {
 	
@@ -44,6 +46,8 @@ public class SearchBooksAction implements BaseAction {
 		request.setAttribute("currentPage", page);
 		request.setAttribute("titles",  getFromCache(request, "titles"));
 		request.setAttribute("authors", getFromCache(request, "authors"));
+		request.setAttribute("minPrice", bookService.minPrice());
+		request.setAttribute("maxPrice", bookService.maxPrice());
 		request.setAttribute("books", books);
 		request.setAttribute("totalPages",
 				totalBooks % pageSize > 0 ? (totalBooks / pageSize + 1) : (totalBooks / pageSize));
@@ -54,14 +58,16 @@ public class SearchBooksAction implements BaseAction {
 
 	}
 	
+	// null, "" -> null
+	// 
 	private void addParameters(HttpServletRequest request, Map<String, Object> params) {
-		params.put("lowerPrice", nullIf(request.getParameter("lowerPrice"), ""));
-		params.put("upperPrice", nullIf(request.getParameter("upperPrice"), ""));
-		params.put("title", nullIf(request.getParameter("title"), ""));
-		params.put("author", nullIf(request.getParameter("author"), ""));
-		params.put("category", nullIf(request.getParameter("category"), ""));
-		params.put("lowerPublishDate", nullIf(request.getParameter("lowerPublishDate"), ""));
-		params.put("upperPublishDate", nullIf(request.getParameter("upperPublishDate"), ""));
+		params.put("lowerPrice", isBlank(request.getParameter("lowerPrice")) ? null : Float.parseFloat(request.getParameter("lowerPrice")));
+		params.put("upperPrice", isBlank(request.getParameter("upperPrice")) ? null : Float.parseFloat(request.getParameter("upperPrice")));
+		params.put("title", isBlank(request.getParameter("title")) ? null : request.getParameter("title"));
+		params.put("author", isBlank(request.getParameter("author")) ? null : request.getParameter("author"));
+		params.put("category", isBlank(request.getParameter("category")) ? null : Long.parseLong(request.getParameter("category")));
+		params.put("lowerPublishDate", isBlank(request.getParameter("lowerPublishDate")) ? null : Date.valueOf(request.getParameter("lowerPublishDate")));
+		params.put("upperPublishDate", isBlank(request.getParameter("upperPublishDate")) ? null : Date.valueOf(request.getParameter("upperPublishDate")));
 	}
 	
 }

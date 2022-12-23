@@ -8,7 +8,7 @@ import javax.persistence.Persistence;
 
 public class PersistenceConfig {
 
-	private static String persistenceUnit;
+	private static String persistenceUnit = "BookStoreWebsite";
 	private static EntityManagerFactory entityManagerFactory;
 	
 	public static void setPersistenceUnit(String persistenceUnit) {
@@ -16,11 +16,11 @@ public class PersistenceConfig {
 	}
 
 	public static EntityManagerFactory getEntityManagerFactory() {
-		if(Objects.isNull(entityManagerFactory)) setEntityManagerFactory(persistenceUnit);
+		if(Objects.isNull(entityManagerFactory)) setEntityManagerFactory();
 		return entityManagerFactory;
 	}
 
-	private static void setEntityManagerFactory(String persistenceUnit) {
+	private static void setEntityManagerFactory() {
 		entityManagerFactory = Persistence.createEntityManagerFactory(persistenceUnit);
 	}
 

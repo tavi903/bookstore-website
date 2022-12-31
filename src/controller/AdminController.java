@@ -22,10 +22,6 @@ public class AdminController extends HttpServlet {
 	@Inject
 	private AdminActionHandlerFactory adminActionHandlerFactory;
 
-	public AdminController() {
-		super();
-	}
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		

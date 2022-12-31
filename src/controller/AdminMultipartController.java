@@ -24,10 +24,6 @@ public class AdminMultipartController extends HttpServlet {
 	@Inject
 	private AdminActionHandlerFactory adminActionHandlerFactory;
 
-	public AdminMultipartController() {
-		super();
-	}
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException  {
 		

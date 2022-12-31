@@ -10,7 +10,7 @@ import javax.servlet.ServletContextListener;
 import cache.BookStoreWebsiteCache;
 
 /**
- * It reads the logging.properties file, associate the cache with the ServletContext and initialize persistenceUnit
+ * It reads the logging.properties file, associate the cache with the ServletContext
  */
 public class ApplicationInitializerListener implements ServletContextListener {
 	

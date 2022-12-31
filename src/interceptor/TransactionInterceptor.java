@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 
 import service.GenericService;
 
-@Transaction
+@Transactional
 @Priority(Interceptor.Priority.PLATFORM_AFTER+10)
 @Interceptor
 public class TransactionInterceptor {

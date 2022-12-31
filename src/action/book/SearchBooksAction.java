@@ -58,8 +58,6 @@ public class SearchBooksAction implements BaseAction {
 
 	}
 	
-	// null, "" -> null
-	// 
 	private void addParameters(HttpServletRequest request, Map<String, Object> params) {
 		params.put("lowerPrice", isBlank(request.getParameter("lowerPrice")) ? null : Float.parseFloat(request.getParameter("lowerPrice")));
 		params.put("upperPrice", isBlank(request.getParameter("upperPrice")) ? null : Float.parseFloat(request.getParameter("upperPrice")));

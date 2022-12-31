@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import dao.GenericDAO;
-import interceptor.Transaction;
+import interceptor.Transactional;
 
-@Transaction
+@Transactional
 public abstract class GenericService<E> {
 
 	private final GenericDAO<E> genericDAO;

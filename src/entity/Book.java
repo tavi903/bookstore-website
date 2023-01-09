@@ -3,6 +3,7 @@ package entity;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -20,6 +21,9 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -55,42 +59,45 @@ import lombok.Setter;
 public class Book {
 
 	@Id
+	@NotNull
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "book_id", unique = true, nullable = false)
+	@Column(name = "book_id", unique = true)
 	private long bookId;
 
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "category_id", nullable = false)
+	@JoinColumn(name = "category_id")
 	private Category category;
 
 	@Size(min = 3, max = 128)
-	@Column(name = "title", unique = true, nullable = false, length = 128)
+	@Column(name = "title")
 	private String title;
 
 	@Size(min = 3, max = 64)
-	@Column(name = "author", nullable = false, length = 64)
+	@Column(name = "author")
 	private String author;
 
 	@Size(min = 64)
-	@Column(name = "description", nullable = false, length = 16777215)
+	@Column(name = "description")
 	private String description;
 
-	@Size(min = 15, max = 15)
-	@Column(name = "isbn", nullable = false, length = 15)
+	@Size(min = 10, max = 10)
+	@Column(name = "isbn", unique = true)
 	private String isbn;
 
 	@Column(name = "image")
 	private byte[] image;
 
-	@Column(name = "price", nullable = false, precision = 2, scale = 0)
+	@NotNull
+	@Column(name = "price", precision = 2, scale = 0)
 	private float price;
 
 	@NotNull
-	@Column(name = "publish_date", nullable = false, length = 10)
+	@Column(name = "publish_date")
 	private Date publishDate;
 
 	@Version
+	@Generated(GenerationTime.ALWAYS)
 	@Column(name = "last_update")
 	private Timestamp lastUpdate;
 
@@ -116,6 +123,30 @@ public class Book {
 		this.price = price;
 		this.publishDate = publishDate;
 		this.lastUpdate = lastUpdate;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(isbn);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Book other = (Book) obj;
+		return Objects.equals(isbn, other.isbn);
+	}
+
+	@Override
+	public String toString() {
+		return "Book [bookId=" + bookId + ", category=" + category.toString() + ", title=" + title + ", author=" + author
+				+ ", description=" + description + ", isbn=" + isbn + ", price="
+				+ price + ", publishDate=" + publishDate + ", lastUpdate=" + lastUpdate + "]";
 	}
 
 }

@@ -29,6 +29,10 @@
 			<form action="multipart?action=${ActionConfig.CREATE_BOOK}" autocomplete="off" method="post" enctype="multipart/form-data">
 				<table>
 					<tr>
+						<td align="left">ISBN-10:</td>
+						<td align="left"><input type="text" id="isbn" name="isbn" size="10"/></td>
+					</tr>
+					<tr>
 						<td align="left">Title:</td>
 						<td align="left"><input type="text" id="title" name="title" size="40"/></td>
 					</tr>
@@ -44,6 +48,10 @@
 							  </c:forEach>
 							</select>
 						</td>
+					</tr>
+					<tr>
+						<td align="left">Publish Date:</td>
+						<td align="left"><input type="date" id="publishDate" name="publishDate"/></td>
 					</tr>
 					<tr>
 						<td colspan="2">

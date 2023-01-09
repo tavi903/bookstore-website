@@ -28,7 +28,6 @@ public class CatchServletExceptionFilter implements Filter {
 	private final Logger logger = Logger.getLogger(CatchServletExceptionFilter.class.getName());
 
 	public CatchServletExceptionFilter() {
-		
 	}
 
 	public void destroy() {

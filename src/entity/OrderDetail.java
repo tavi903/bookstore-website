@@ -1,7 +1,5 @@
 package entity;
 
-import java.io.Serializable;
-
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
@@ -16,9 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "order_detail", catalog = "bookstoredb")
-public class OrderDetail implements Serializable {
-
-	private static final long serialVersionUID = 2326599914116085613L;
+public class OrderDetail {
 
 	@EmbeddedId
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

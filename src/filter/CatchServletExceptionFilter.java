@@ -17,6 +17,8 @@ import javax.validation.ConstraintViolationException;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
+import utils.BookStoreException;
+
 import static utils.ProjectUtils.*;
 
 
@@ -36,6 +38,9 @@ public class CatchServletExceptionFilter implements Filter {
 		
 		try {
 			chain.doFilter(request, response);
+		} catch(BookStoreException e) {
+			logger.log(Level.WARNING, e.toString());
+			loadMessageJsp(request, response, e.getMessage());
 		} catch (ConstraintViolationException e) {
 			logger.log(Level.WARNING, e.toString());
 			String message = e.getConstraintViolations().stream()

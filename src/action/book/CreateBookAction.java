@@ -19,6 +19,7 @@ import entity.Book;
 import entity.Category;
 import service.BookService;
 import service.CategoryService;
+import utils.BookStoreException;
 
 import static utils.ProjectUtils.*;
 
@@ -40,14 +41,18 @@ public class CreateBookAction implements BaseAction {
 		int pageSize = ApplicationConfig.BOOK_PAGE_SIZE;
 		
 		Category category = categoryService.find(Long.parseLong(request.getParameter("category"))).get();
-
+		
+		if(request.getParameter("publishDate").equals("")) {
+			throw new BookStoreException("Publish Date can not be null.");
+		}
+		
 		Book book = Book.builder()
 				.title(request.getParameter("title"))
 				.author(request.getParameter("author"))
 				.category(category)
-				.description("...")
-				.isbn("42")
-				.publishDate(Date.valueOf("2022-12-11"))
+				.description("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus luctus pulvinar elit posuere tempor. Maecenas dictum gravida convallis. Nullam porttitor sollicitudin eros, a laoreet augue pulvinar dignissim. Sed condimentum ullamcorper quam, semper volutpat ligula volutpat nec. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Aenean pharetra ligula eu placerat pharetra. Phasellus tincidunt posuere lorem vel ornare. Praesent dictum odio sit amet vestibulum lacinia. Proin malesuada.")
+				.isbn(request.getParameter("isbn"))
+				.publishDate(Date.valueOf(request.getParameter("publishDate")))
 				.build();
 		
 		Part part = request.getPart("bookImage");

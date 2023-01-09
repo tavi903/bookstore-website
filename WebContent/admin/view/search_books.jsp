@@ -35,7 +35,7 @@
 	
 	<div align="center">
 		<h1 class="pageheading">Books Management</h1>
-		<a href="view?action=create_book">Create New Book</a>
+		<a href="view?action=${ActionConfig.REDIRECT}:book_form.jsp">Create New Book</a>
 	</div>
 	
 	<c:if test = "${not empty message}">
@@ -104,6 +104,7 @@
 			<tr>
 				<th>Title</th>
 				<th>Author</th>
+				<th>Category</th>
 				<th>Price</th>
 				<th>Publish Date</th>
 				<th>Actions</th>
@@ -112,11 +113,11 @@
 				<tr>
 					<td>${book.title}</td>
 					<td>${book.author}</td>
+					<td>${book.category.name}</td>
 					<td>${book.price}</td>
 					<td>${book.publishDate}</td>
-					<td>
+					<td align="center">
 						<a href="view?action=edit_book?id=${book.bookId}">Edit</a>
-						<a href="javascript:confirmDelete(${book.bookId})">Delete</a>
 					</td>
 				</tr>
 			</c:forEach>

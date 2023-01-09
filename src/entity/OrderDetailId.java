@@ -1,10 +1,12 @@
 package entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class OrderDetailId {
+public class OrderDetailId implements Serializable {
 
 	@Column(name = "order_id")
 	private Integer orderId;

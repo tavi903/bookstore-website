@@ -1,6 +1,5 @@
 package entity;
 
-import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -18,7 +17,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -30,7 +28,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "book", catalog = "bookstoredb", uniqueConstraints = @UniqueConstraint(columnNames = "title"))
+@Table(name = "book")
 @NamedQueries({
 	@NamedQuery(name = "Book.count",   query = "SELECT COUNT(b) FROM Book b"),
 	@NamedQuery(name = "Book.findAll", query = "SELECT b FROM Book b ORDER BY b.title"),
@@ -54,9 +52,7 @@ import lombok.Setter;
 	@NamedQuery(name = "Book.maxPrice", query = "SELECT MAX(b.price) FROM Book b"),
 	@NamedQuery(name = "Book.minPrice", query = "SELECT MIN(b.price) FROM Book b")
 })
-public class Book implements Serializable {
-
-	private static final long serialVersionUID = -2439382557636658867L;
+public class Book {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -84,7 +80,7 @@ public class Book implements Serializable {
 	@Column(name = "isbn", nullable = false, length = 15)
 	private String isbn;
 
-	@Column(name = "image", nullable = false)
+	@Column(name = "image")
 	private byte[] image;
 
 	@Column(name = "price", nullable = false, precision = 2, scale = 0)
@@ -95,7 +91,7 @@ public class Book implements Serializable {
 	private Date publishDate;
 
 	@Version
-	@Column(name = "last_update", nullable = false)
+	@Column(name = "last_update")
 	private Timestamp lastUpdate;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book")

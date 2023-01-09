@@ -1,6 +1,5 @@
 package entity;
 
-import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,9 +15,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "review", catalog = "bookstoredb")
-public class Review implements Serializable {
-
-	private static final long serialVersionUID = -4590771344597459894L;
+public class Review {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

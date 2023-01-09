@@ -1,14 +1,10 @@
 package entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class OrderDetailId implements Serializable {
-
-	private static final long serialVersionUID = -7416187960062354649L;
+public class OrderDetailId {
 
 	@Column(name = "order_id")
 	private Integer orderId;

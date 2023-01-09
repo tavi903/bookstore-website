@@ -1,7 +1,6 @@
 package cache;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,7 +18,7 @@ import service.CategoryService;
 public class BookStoreWebsiteCache {
 
     private final Logger logger = Logger.getLogger(BookStoreWebsiteCache.class.getName());
-    private final Map<String, Object> map = new HashMap<>();
+    private final ConcurrentHashMap<String, Object> map = new ConcurrentHashMap<>();
     
     private final CategoryService categoryService; 
     private final BookService bookService;
@@ -59,7 +58,7 @@ public class BookStoreWebsiteCache {
     	return map.get(key);
     }
 
-    private synchronized void refresh() {
+    private void refresh() {
 
     	map.clear();
     	map.put("categories", categoryService.findAll());

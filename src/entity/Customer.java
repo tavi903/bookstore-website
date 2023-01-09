@@ -1,6 +1,5 @@
 package entity;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,9 +17,7 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "customer", catalog = "bookstoredb", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
-public class Customer implements Serializable {
-
-	private static final long serialVersionUID = 8977025370829822944L;
+public class Customer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

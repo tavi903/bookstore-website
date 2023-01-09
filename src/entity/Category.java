@@ -1,8 +1,8 @@
 package entity;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,13 +23,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "category", catalog = "bookstoredb")
+@Table(name = "category")
 @NamedQueries({
 		@NamedQuery(name = "Category.count", query = "SELECT COUNT(c) FROM Category c"),
 		@NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c ORDER BY c.name") })
-public class Category implements Serializable {
-
-	private static final long serialVersionUID = 7868343389161799534L;
+public class Category {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,10 +56,23 @@ public class Category implements Serializable {
 		this.deleted = isDeleted;
 	}
 
-	public Category(String name, boolean isDeleted, Set<Book> books) {
-		this.name = name;
-		this.deleted = isDeleted;
-		this.books = books;
+	@Override
+	public int hashCode() {
+		return Objects.hash(categoryId, deleted, lastUpdate, name);
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Category other = (Category) obj;
+		return categoryId == other.categoryId && deleted == other.deleted
+				&& Objects.equals(lastUpdate, other.lastUpdate) && Objects.equals(name, other.name);
+	}
+	
 
 }

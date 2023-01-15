@@ -39,17 +39,17 @@ import lombok.Setter;
 	@NamedQuery(name = "Book.countSearch", 
 			query = 
 			  "SELECT COUNT(b) FROM Book b "
-			+ "WHERE b.price >= IFNULL(:lowerPrice, b.price) AND b.price <= IFNULL(:upperPrice, b.price) "
-			+ "AND b.title = IFNULL(:title, b.title) AND b.author = IFNULL(:author, b.author) "
-			+ "AND b.publishDate >= IFNULL(:lowerPublishDate, b.publishDate) AND b.publishDate <= IFNULL(:upperPublishDate, b.publishDate) "
-			+ "AND b.category.categoryId = IFNULL(:category, b.category.categoryId)"),
+			+ "WHERE b.price >= coalesce(:lowerPrice, b.price) AND b.price <= coalesce(:upperPrice, b.price) "
+			+ "AND b.title = coalesce(:title, b.title) AND b.author = coalesce(:author, b.author) "
+			+ "AND b.publishDate >= coalesce(:lowerPublishDate, b.publishDate) AND b.publishDate <= coalesce(:upperPublishDate, b.publishDate) "
+			+ "AND b.category.categoryId = coalesce(:category, b.category.categoryId)"),
 	@NamedQuery(name = "Book.search",
 			query = 
 			  "SELECT b FROM Book b "
-			+ "WHERE b.price >= IFNULL(:lowerPrice, b.price) AND b.price <= IFNULL(:upperPrice, b.price) "
-			+ "AND b.title = IFNULL(:title, b.title) AND b.author = IFNULL(:author, b.author) "
-			+ "AND b.publishDate >= IFNULL(:lowerPublishDate, b.publishDate) AND b.publishDate <= IFNULL(:upperPublishDate, b.publishDate) "
-			+ "AND b.category.categoryId = IFNULL(:category, b.category.categoryId) "
+			+ "WHERE b.price >= coalesce(:lowerPrice, b.price) AND b.price <= coalesce(:upperPrice, b.price) "
+			+ "AND b.title = coalesce(:title, b.title) AND b.author = coalesce(:author, b.author) "
+			+ "AND b.publishDate >= coalesce(:lowerPublishDate, b.publishDate) AND b.publishDate <= coalesce(:upperPublishDate, b.publishDate) "
+			+ "AND b.category.categoryId = coalesce(:category, b.category.categoryId) "
 			+ "ORDER BY b.title"),
 	@NamedQuery(name = "Book.selectTitles",  query = "SELECT DISTINCT b.title FROM Book b ORDER BY b.title"),
 	@NamedQuery(name = "Book.selectAuthors", query = "SELECT DISTINCT b.author FROM Book b ORDER BY b.author"),

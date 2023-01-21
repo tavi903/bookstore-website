@@ -22,9 +22,6 @@ import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -61,7 +58,7 @@ public class Book {
 	@Id
 	@NotNull
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "book_id", unique = true)
+	@Column(name = "book_id")
 	private long bookId;
 
 	@NotNull
@@ -69,20 +66,20 @@ public class Book {
 	@JoinColumn(name = "category_id")
 	private Category category;
 
-	@Size(min = 3, max = 128)
+	@Size(min = 3, max = 128, message = "Title must be longer than 3 characters and shorter than 128.")
 	@Column(name = "title")
 	private String title;
 
-	@Size(min = 3, max = 64)
+	@Size(min = 3, max = 64, message = "Author must be longer than 3 characters and shorter than 64.")
 	@Column(name = "author")
 	private String author;
 
-	@Size(min = 64)
+	@Size(min = 64, message = "Description must be longer than 64 characters.")
 	@Column(name = "description")
 	private String description;
 
-	@Size(min = 10, max = 10)
-	@Column(name = "isbn", unique = true)
+	@Size(min = 10, max = 10, message = "ISBN must be 10 characters.")
+	@Column(name = "isbn")
 	private String isbn;
 
 	@Column(name = "image")
@@ -97,7 +94,6 @@ public class Book {
 	private Date publishDate;
 
 	@Version
-	@Generated(GenerationTime.ALWAYS)
 	@Column(name = "last_update")
 	private Timestamp lastUpdate;
 
@@ -111,9 +107,9 @@ public class Book {
 	}
 
 	@Builder
-	public Book(Category category, String title, String author, String description, String isbn,
+	public Book(long bookId, Category category, String title, String author, String description, String isbn,
 			byte[] image, float price, Date publishDate, Timestamp lastUpdate) {
-		super();
+		this.bookId = bookId;
 		this.category = category;
 		this.title = title;
 		this.author = author;

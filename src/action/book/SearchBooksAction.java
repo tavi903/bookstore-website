@@ -32,7 +32,7 @@ public class SearchBooksAction implements BaseAction {
 	public void perform(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Map<String, Object> params = new HashMap<>();
-		addParameters(request, params);
+		addSearchParameters(request, params);
 		
 		int pageSize = ApplicationConfig.BOOK_PAGE_SIZE;
 		int page     = Integer.parseInt(request.getParameter("page"));
@@ -58,7 +58,7 @@ public class SearchBooksAction implements BaseAction {
 
 	}
 	
-	private void addParameters(HttpServletRequest request, Map<String, Object> params) {
+	private void addSearchParameters(HttpServletRequest request, Map<String, Object> params) {
 		params.put("lowerPrice", isBlank(request.getParameter("lowerPrice")) ? null : Float.parseFloat(request.getParameter("lowerPrice")));
 		params.put("upperPrice", isBlank(request.getParameter("upperPrice")) ? null : Float.parseFloat(request.getParameter("upperPrice")));
 		params.put("title", isBlank(request.getParameter("title")) ? null : request.getParameter("title"));

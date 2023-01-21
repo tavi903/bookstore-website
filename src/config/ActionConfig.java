@@ -33,6 +33,8 @@ public class ActionConfig {
 	/* Books Actions */
 	
 	public static final String CREATE_BOOK  = "create_book";
+	public static final String EDIT_BOOK    = "edit_book";
+	public static final String GET_BOOK     = "get_book";
 	public static final String SEARCH_BOOKS = "search_books";
 	
 	/* ------------------------ */
@@ -67,6 +69,8 @@ public class ActionConfig {
 	
 	public static boolean isBookAction(String action) {
 		if(action.equals(CREATE_BOOK)
+				|| action.equals(EDIT_BOOK)
+				|| action.equals(GET_BOOK)
 				|| action.equals(SEARCH_BOOKS))
 			return true;
 		else return false;

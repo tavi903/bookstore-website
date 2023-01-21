@@ -117,7 +117,7 @@
 					<td>${book.price}</td>
 					<td>${book.publishDate}</td>
 					<td align="center">
-						<a href="view?action=edit_book?id=${book.bookId}">Edit</a>
+						<a href="view?action=${ActionConfig.GET_BOOK}&id=${book.bookId}">Edit</a>
 					</td>
 				</tr>
 			</c:forEach>

@@ -17,9 +17,6 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,18 +31,17 @@ public class Category {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "category_id", unique = true)
+	@Column(name = "category_id")
 	private long categoryId;
 
 	@Size(min = 4, max = 30)
-	@Column(name = "name", unique = true)
+	@Column(name = "name")
 	private String name;
 
 	@Column(name = "flag_deleted")
 	private boolean deleted;
 
 	@Version
-	@Generated(GenerationTime.ALWAYS)
 	@Column(name = "last_update")
 	private Timestamp lastUpdate;
 

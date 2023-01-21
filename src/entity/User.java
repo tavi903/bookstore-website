@@ -20,9 +20,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
-
 import lombok.Setter;
 import lombok.Getter;
 
@@ -49,7 +46,7 @@ public class User {
 
 	@NotBlank
 	@Email
-	@Column(name = "email", unique = true)
+	@Column(name = "email")
 	private String email;
 
 	/*
@@ -66,7 +63,6 @@ public class User {
 	private String fullName;
 
 	@Version
-	@Generated(GenerationTime.ALWAYS)
 	@Column(name = "last_update")
 	private Timestamp lastUpdate;
 
@@ -75,7 +71,6 @@ public class User {
 
 	public User(String email, String password,
 			String fullName) {
-		super();
 		this.email = email;
 		this.password = password;
 		this.fullName = fullName;

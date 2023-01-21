@@ -65,6 +65,8 @@ public class BookStoreWebsiteCache {
     	map.put("totalCategories", categoryService.count());
     	map.put("titles", bookService.selectTitles());
     	map.put("authors", bookService.selectAuthors());
+    	map.put("minPrice", bookService.minPrice());
+    	map.put("maxPrice", bookService.maxPrice());
     	map.put("totalBooks", bookService.count());
     	logger.log(Level.INFO, "The cache has been refreshed!");
     	

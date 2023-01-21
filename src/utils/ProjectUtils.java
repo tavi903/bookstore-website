@@ -1,7 +1,6 @@
 package utils;
 
 import java.io.IOException;
-import java.util.Objects;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,11 +25,6 @@ public class ProjectUtils {
 	public static Object getFromCache(ServletRequest request, String key) {
 		BookStoreWebsiteCache cache = (BookStoreWebsiteCache) request.getServletContext().getAttribute("cache");
 		return cache.get(key);
-	}
-	
-	public static Object nullIf(Object obj, Object other) {
-		if (Objects.isNull(obj) || obj.equals(other)) return null;
-		else return obj;
 	}
 	
 }

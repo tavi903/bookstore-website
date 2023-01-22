@@ -19,7 +19,7 @@
   </filter-mapping>
   <listener>
     <listener-class>
-        listener.ApplicationInitializerListener
+        com.tavi903.listener.ApplicationInitializerListener
     </listener-class>
 	</listener>
 </web-app>

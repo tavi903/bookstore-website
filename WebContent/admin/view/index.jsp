@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="config.ActionConfig" %>
+<%@ page import="com.tavi903.config.ActionConfig" %>
 <!DOCTYPE html>
 <html>
 <head>

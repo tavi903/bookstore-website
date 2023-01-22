@@ -16,9 +16,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import config.PersistenceConfig;
-import entity.Book;
-import entity.Category;
+import com.tavi903.config.PersistenceConfig;
+import com.tavi903.dao.BookDAO;
+import com.tavi903.dao.CategoryDAO;
+import com.tavi903.entity.Book;
+import com.tavi903.entity.Category;
 
 public class BookDAOTest {
 	

@@ -1,5 +1,5 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="config.ActionConfig" %>
+<%@ page import="com.tavi903.config.ActionConfig" %>
 <div align="center">
 	<a href="view?action=${ActionConfig.REDIRECT}:index.jsp"><img src="../images/BookstoreAdminLogo.png"/></a>
 	<div>

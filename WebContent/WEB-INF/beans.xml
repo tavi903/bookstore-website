@@ -5,6 +5,6 @@
  bean-discovery-mode="all"																   
 >
  <interceptors>
-  <class>interceptor.TransactionInterceptor</class>
+  <class>com.tavi903.interceptor.TransactionInterceptor</class>
  </interceptors>
 </beans>

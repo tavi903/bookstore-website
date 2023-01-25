@@ -4,7 +4,6 @@ import static com.tavi903.utils.ProjectUtils.*;
 
 import java.io.IOException;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import javax.persistence.OptimisticLockException;
@@ -21,15 +20,16 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import com.tavi903.utils.BookStoreException;
 
+import static com.tavi903.config.ApplicationConfig.logger;
+
 
 @WebFilter(urlPatterns = "/*", filterName = "catch-exception")
 public class CatchServletExceptionFilter implements Filter {
 	
-	private final Logger logger = Logger.getLogger(CatchServletExceptionFilter.class.getName());
-
-	public CatchServletExceptionFilter() {
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
 	}
-
+	
 	public void destroy() {
 	}
 
@@ -39,25 +39,22 @@ public class CatchServletExceptionFilter implements Filter {
 		try {
 			chain.doFilter(request, response);
 		} catch(BookStoreException e) {
-			logger.log(Level.WARNING, e.toString());
+			logger.log(Level.WARNING, e.getMessage(), e);
 			loadMessageJsp(request, response, e.getMessage());
 		} catch (ConstraintViolationException e) {
-			logger.log(Level.WARNING, e.toString());
+			logger.log(Level.WARNING, e.getMessage(), e);
 			String message = e.getConstraintViolations().stream()
 					.map(violation -> violation.getPropertyPath().toString() + ": " + violation.getMessage())
 					.collect(Collectors.joining("<br />"));
 			loadMessageJsp(request, response, message);
 		} catch (OptimisticLockException e) {
-			logger.log(Level.WARNING, e.toString());
+			logger.log(Level.WARNING, e.getMessage(), e);
 			loadMessageJsp(request, response, "This entity has been modified by another user!");
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, e.toString()+"\nStackTrace:\n"+ExceptionUtils.getStackTrace(e));
+			logger.log(Level.SEVERE, e.toString()+"\nStackTrace:\n"+ExceptionUtils.getStackTrace(e), e);
 			loadMessageJsp(request, response, "Errore :(");
 		}
 		
 	}
-
-	public void init(FilterConfig fConfig) throws ServletException {
-	}
-
+	
 }

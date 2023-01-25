@@ -26,7 +26,7 @@ import lombok.Getter;
 @Getter
 @Setter
 @Entity
-@Table(name = "user", catalog = "bookstoredb")
+@Table(name = "user")
 @NamedStoredProcedureQuery(name = "User.update_user", procedureName = "update_user", parameters = {
 		@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class, name = "p_last_accessed_time"),
 		@StoredProcedureParameter(mode = ParameterMode.IN, type = Long.class, name = "p_user_id"),

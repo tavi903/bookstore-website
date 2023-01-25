@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "order_detail", catalog = "bookstoredb")
+@Table(name = "order_detail")
 public class OrderDetail {
 
 	@EmbeddedId

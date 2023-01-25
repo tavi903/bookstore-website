@@ -1,0 +1,53 @@
+package com.tavi903.entity;
+
+import java.sql.Timestamp;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Entity
+@Table(name="log")
+@NamedQueries({
+	@NamedQuery(name = "Log.count", query = "SELECT COUNT(l) FROM Log l"),
+	@NamedQuery(name = "Log.findAll", query = "SELECT l FROM Log l ORDER BY l.date DESC") })
+public class Log {
+
+	@Id
+	@Column(name="id_log")
+	private int idLog;
+
+	private Timestamp date;
+
+	private String exception;
+
+	private String level;
+
+	private String message;
+
+	@Column(name="stack_trace")
+	private String stackTrace;
+	
+	public Log() {
+	}
+
+	@Builder
+	public Log(Timestamp date, String exception, String level, String message, String stackTrace) {
+		super();
+		this.date = date;
+		this.exception = exception;
+		this.level = level;
+		this.message = message;
+		this.stackTrace = stackTrace;
+	}
+
+}

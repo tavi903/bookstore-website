@@ -16,7 +16,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "customer", catalog = "bookstoredb", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Table(name = "customer", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class Customer {
 
 	@Id

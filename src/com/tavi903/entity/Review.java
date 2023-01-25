@@ -14,7 +14,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "review", catalog = "bookstoredb")
+@Table(name = "review")
 public class Review {
 
 	@Id

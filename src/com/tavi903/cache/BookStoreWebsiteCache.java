@@ -2,7 +2,6 @@ package com.tavi903.cache;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -11,13 +10,14 @@ import com.tavi903.config.ApplicationConfig;
 import com.tavi903.service.BookService;
 import com.tavi903.service.CategoryService;
 
+import static com.tavi903.config.ApplicationConfig.logger;
+
 /*
  * Simple Cache
  */
 @Singleton
 public class BookStoreWebsiteCache {
 
-    private final Logger logger = Logger.getLogger(BookStoreWebsiteCache.class.getName());
     private final ConcurrentHashMap<String, Object> map = new ConcurrentHashMap<>();
     
     private final CategoryService categoryService; 

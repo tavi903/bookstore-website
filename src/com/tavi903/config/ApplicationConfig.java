@@ -1,5 +1,7 @@
 package com.tavi903.config;
 
+import java.util.logging.Logger;
+
 public class ApplicationConfig {
 	
 	/* Pagination Configuration */
@@ -15,5 +17,7 @@ public class ApplicationConfig {
 	public static final int MINUTES_REFRESH = 10;
 
 	/* ------------------------ */
-
+	
+	public static final Logger logger = Logger.getLogger("BookStore Logger");
+	
 }

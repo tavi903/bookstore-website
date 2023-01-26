@@ -3,6 +3,9 @@ package com.tavi903.config;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 public class ApplicationConfig {
 	
 	/* Pagination Configuration */
@@ -12,6 +15,8 @@ public class ApplicationConfig {
 	public static final int CATEGORY_PAGE_SIZE = 4;
 	
 	/* ------------------------ */
+	
+	public static EntityManagerFactory entityManagerFactory =  Persistence.createEntityManagerFactory("bookstoredb");
 	
 	/* Cache */
 	

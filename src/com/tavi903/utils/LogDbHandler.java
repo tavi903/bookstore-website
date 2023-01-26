@@ -7,12 +7,11 @@ import java.util.logging.StreamHandler;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
-import com.tavi903.config.PersistenceConfig;
+import com.tavi903.config.ApplicationConfig;
 import com.tavi903.entity.Log;
 
 public class LogDbHandler extends StreamHandler {
 	
-	private final EntityManagerFactory entityManagerFactory = PersistenceConfig.getEntityManagerFactory();
 	private final static int MAX_CHAR_STACKTRACE = 4096;
 	
 	@Override
@@ -39,7 +38,7 @@ public class LogDbHandler extends StreamHandler {
 	}
 	
 	private final Log create(Log log) {
-		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		EntityManager entityManager = ApplicationConfig.entityManagerFactory.createEntityManager();
 		entityManager.getTransaction().begin();
 		entityManager.persist(log);
 		entityManager.getTransaction().commit();

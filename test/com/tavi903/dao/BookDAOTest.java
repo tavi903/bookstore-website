@@ -16,7 +16,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.tavi903.config.PersistenceConfig;
 import com.tavi903.dao.BookDAO;
 import com.tavi903.dao.CategoryDAO;
 import com.tavi903.entity.Book;
@@ -32,7 +31,6 @@ public class BookDAOTest {
 	@BeforeClass
 	public static void setUpClass() {
 		
-		PersistenceConfig.setPersistenceUnit("H2");
 		bookDAO = new BookDAO();
 		categories = new CategoryDAO().findAll();
 		

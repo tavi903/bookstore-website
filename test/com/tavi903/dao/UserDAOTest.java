@@ -20,7 +20,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.tavi903.config.PersistenceConfig;
 import com.tavi903.dao.UserDAO;
 import com.tavi903.entity.User;
 
@@ -38,8 +37,6 @@ public class UserDAOTest {
 	
 	@BeforeClass
 	public static void setUpClass() {
-		
-		PersistenceConfig.setPersistenceUnit("H2");
 		
 		userDAO = new UserDAO();
 		

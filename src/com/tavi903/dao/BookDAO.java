@@ -5,14 +5,14 @@ import java.util.Map;
 
 import javax.inject.Singleton;
 
-import com.tavi903.config.PersistenceConfig;
+import com.tavi903.config.ApplicationConfig;
 import com.tavi903.entity.Book;
 
 @Singleton
 public class BookDAO extends GenericDAO<Book> {
 
 	public BookDAO() {
-		super(PersistenceConfig.getEntityManagerFactory(), Book.class);
+		super(ApplicationConfig.entityManagerFactory, Book.class);
 	}
 
 	public long countSearch(Map<String, Object> parameters) {

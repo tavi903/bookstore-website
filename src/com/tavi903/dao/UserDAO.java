@@ -8,14 +8,14 @@ import java.util.Objects;
 import javax.inject.Singleton;
 import javax.persistence.StoredProcedureQuery;
 
-import com.tavi903.config.PersistenceConfig;
+import com.tavi903.config.ApplicationConfig;
 import com.tavi903.entity.User;
 
 @Singleton
 public class UserDAO extends GenericDAO<User> {
 
 	public UserDAO() {
-		super(PersistenceConfig.getEntityManagerFactory(), User.class);
+		super(ApplicationConfig.entityManagerFactory, User.class);
 	}
 
 	@Deprecated

@@ -1,5 +1,6 @@
 package com.tavi903.config;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ApplicationConfig {
@@ -19,5 +20,6 @@ public class ApplicationConfig {
 	/* ------------------------ */
 	
 	public static final Logger logger = Logger.getLogger("BookStore Logger");
+	public static final Level DEFAULT_LEVEL = Level.WARNING;
 	
 }

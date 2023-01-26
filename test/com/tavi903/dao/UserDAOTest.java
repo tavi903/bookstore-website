@@ -1,4 +1,4 @@
-package dao;
+package com.tavi903.dao;
 
 import static org.junit.Assert.*;
 

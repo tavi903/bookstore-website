@@ -9,13 +9,22 @@
 	<build>
 		<resources>
 			<resource>
-				<directory>src/com/tavi903/META-INF</directory>
+				<directory>src/META-INF</directory>
 				<targetPath>META-INF</targetPath>
 				<includes>
 					<include>persistence.xml</include>
 				</includes>
 			</resource>
 		</resources>
+		<testResources>
+			<testResource>
+				<directory>test/META-INF</directory>
+				<targetPath>META-INF</targetPath>
+				<includes>
+					<include>persistence.xml</include>
+				</includes>
+			</testResource>
+		</testResources>
 		<sourceDirectory>src</sourceDirectory>
 		<testSourceDirectory>test</testSourceDirectory>
 		<plugins>
@@ -46,7 +55,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>5.5.3.Final</version> <!-- 5.2.12.Final -->
+			<version>5.5.3.Final</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -86,16 +95,16 @@
 			<scope>provided</scope>
 		</dependency>		
 		<dependency>
-		    <groupId>org.glassfish</groupId>
-		    <artifactId>javax.el</artifactId>
+		    <groupId>javax.el</groupId>
+		    <artifactId>javax.el-api</artifactId>
 		    <version>3.0.0</version>
-		    <scope>compile</scope>
+		    <scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>jstl</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-			<scope>compile</scope>
+		   <groupId>org.glassfish</groupId>
+		   <artifactId>javax.el</artifactId>
+		   <version>3.0.0</version>
+		   <scope>compile</scope>
 		</dependency>
 		<dependency>
 		    <groupId>junit</groupId>

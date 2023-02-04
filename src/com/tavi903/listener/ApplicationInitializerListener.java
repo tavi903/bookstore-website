@@ -8,7 +8,6 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import com.tavi903.cache.BookStoreWebsiteCache;
-import com.tavi903.config.ApplicationConfig;
 import com.tavi903.utils.LogDbHandler;
 
 import static com.tavi903.config.ApplicationConfig.logger;
@@ -33,10 +32,9 @@ public class ApplicationInitializerListener implements ServletContextListener {
 			String path = getClass().getResource("./../../../../logging.properties").getPath();
 			FileInputStream fileInputStream = new FileInputStream(path);
 			LogManager.getLogManager().readConfiguration(fileInputStream);
-
-			logger.setLevel(ApplicationConfig.DEFAULT_LEVEL);
+			
 			logger.addHandler(new LogDbHandler());
-		
+			
 			servletContextEvent.getServletContext().setAttribute("cache", cache);
 		
 		} catch (Exception e) {

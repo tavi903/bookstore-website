@@ -36,7 +36,7 @@
 					<td>${category.name}</td>
 					<td align="center"><input type="checkbox" ${category.deleted == true ? 'checked' : ''} disabled/></td>
 					<td align="center">
-						<a href="view?action=${ActionConfig.GET_CATEGORY}&id=${category.categoryId}">Edit</a>
+						<a href="view?action=${ActionConfig.GET_CATEGORY}&id=${category.id}">Edit</a>
 					</td>
 				</tr>
 			</c:forEach>

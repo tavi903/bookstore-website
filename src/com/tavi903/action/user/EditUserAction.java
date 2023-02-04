@@ -36,10 +36,10 @@ public class EditUserAction implements BaseAction {
 		String fullName = request.getParameter("fullName");
 		String password = request.getParameter("password");
 		User user = new User(email, password, fullName);
-		user.setUserId(Integer.parseInt(request.getParameter("userId")));
+		user.setId(Long.parseLong(request.getParameter("userId")));
 		user.setLastUpdate(Timestamp.valueOf(request.getParameter("lastUpdate")));
 
-		userService.update(user);
+		userService.update(user, getUserLogged(request));
 
 		long totalUsers = userService.count();
 		List<User> listUsers = userService.findAll(1, pageSize);

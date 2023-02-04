@@ -25,10 +25,8 @@ public class BookStoreWebsiteCache {
     
     @Inject
     public BookStoreWebsiteCache(CategoryService categoryService, BookService bookService) {
-    	
     	this.bookService = bookService;
     	this.categoryService = categoryService;
-        
         Thread t = new Thread(new Runnable() {
             public void run() {
                 while (true) {
@@ -41,17 +39,14 @@ public class BookStoreWebsiteCache {
                 }
             }
         });
-        
         // setDaemon(): Marks this thread as either a daemon thread or a user thread.
         // The Java Virtual Machine exits when the only threads running are all daemon threads.
         // This method must be invoked before the thread is started.
         t.setDaemon(true);
-        
         // start(): Causes this thread to begin execution; the Java Virtual Machine calls the run method of this thread.
         // The result is that two threads are running concurrently:
         // the current thread (which returns from the call to the start method) and the other thread (which executes its run method).
         t.start();
-        
     }
     
     public Object get(String key) {
@@ -59,7 +54,6 @@ public class BookStoreWebsiteCache {
     }
 
     private void refresh() {
-
     	map.clear();
     	map.put("categories", categoryService.findAll());
     	map.put("totalCategories", categoryService.count());
@@ -69,6 +63,5 @@ public class BookStoreWebsiteCache {
     	map.put("maxPrice", bookService.maxPrice());
     	map.put("totalBooks", bookService.count());
     	logger.log(Level.INFO, "The cache has been refreshed!");
-    	
     }
 }

@@ -67,7 +67,7 @@ public class CreateBookAction implements BaseAction {
 
 		}
 
-		bookService.create(book);
+		bookService.create(book, getUserLogged(request));
 		
 		/* Add Request Attributes */
 

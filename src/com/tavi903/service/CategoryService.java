@@ -7,7 +7,7 @@ import com.tavi903.dao.CategoryDAO;
 import com.tavi903.entity.Category;
 
 @Singleton
-public class CategoryService extends GenericService<Category> {
+public class CategoryService extends BaseService<Category> {
 
 	@Inject
 	public CategoryService(CategoryDAO categoryDAO) {

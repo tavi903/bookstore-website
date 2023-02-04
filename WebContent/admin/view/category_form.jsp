@@ -48,7 +48,7 @@
 		</c:if>
 		<c:if test="${ category != null }">
 			<form action="view?action=${ActionConfig.EDIT_CATEGORY}" method="post">
-				<input hidden="true" name="categoryId" value="${category.categoryId}"/>
+				<input hidden="true" name="categoryId" value="${category.id}"/>
 				<input hidden="true" name="lastUpdate" value="${category.lastUpdate}"/>
 				<table>
 					<tr>

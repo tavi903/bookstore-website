@@ -12,7 +12,7 @@ import com.tavi903.config.ApplicationConfig;
 import com.tavi903.entity.User;
 
 @Singleton
-public class UserDAO extends GenericDAO<User> {
+public class UserDAO extends BaseDAO<User> {
 
 	public UserDAO() {
 		super(ApplicationConfig.entityManagerFactory, User.class);
@@ -24,7 +24,7 @@ public class UserDAO extends GenericDAO<User> {
 		try {
 			StoredProcedureQuery query = super.getEntityManager().createNamedStoredProcedureQuery("User.update_user");
 			query.setParameter("p_last_accessed_time", lastAccessedTime);
-			query.setParameter("p_user_id", user.getUserId());
+			query.setParameter("p_user_id", user.getId());
 			query.setParameter("p_email", user.getEmail());
 			query.setParameter("p_password", user.getPassword());
 			query.setParameter("p_full_name", user.getFullName());

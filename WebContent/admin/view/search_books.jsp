@@ -65,7 +65,7 @@
 						<select style="width: 100%;" name="category" id="category">
 						  <option value="" ${params.get('category') == null ? 'selected' : ''}></option>
 						  <c:forEach var="category" items="${applicationScope.cache.get('categories')}">
-						  	<option value="${category.categoryId}" ${params.get('category') == category.categoryId ? 'selected' : ''}>${category.name}</option>
+						  	<option value="${category.id}" ${params.get('category') == category.id ? 'selected' : ''}>${category.name}</option>
 						  </c:forEach>
 						</select>
 					</td>
@@ -117,7 +117,7 @@
 					<td>${book.price}</td>
 					<td>${book.publishDate}</td>
 					<td align="center">
-						<a href="view?action=${ActionConfig.GET_BOOK}&id=${book.bookId}">Edit</a>
+						<a href="view?action=${ActionConfig.GET_BOOK}&id=${book.id}">Edit</a>
 					</td>
 				</tr>
 			</c:forEach>

@@ -1,34 +1,24 @@
 package com.tavi903.entity;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "order_detail")
-public class OrderDetail {
+public class OrderDetail extends BaseEntity {
 
-	@EmbeddedId
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@AttributeOverrides({ @AttributeOverride(name = "orderId", column = @Column(name = "order_id")),
-			@AttributeOverride(name = "bookId", column = @Column(name = "book_id")),
-			@AttributeOverride(name = "quantity", column = @Column(name = "quantity", nullable = false)),
-			@AttributeOverride(name = "subtotal", column = @Column(name = "subtotal", nullable = false, precision = 12, scale = 0)) })
-	private OrderDetailId id;
+	@Embedded
+	private OrderDetailId orderDetailId;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "book_id", insertable = false, updatable = false)
 	private Book book;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "order_id", insertable = false, updatable = false)
 	private BookOrder bookOrder;
 
@@ -38,14 +28,6 @@ public class OrderDetail {
 	public OrderDetail(Book book, BookOrder bookOrder) {
 		this.book = book;
 		this.bookOrder = bookOrder;
-	}
-
-	public OrderDetailId getId() {
-		return this.id;
-	}
-
-	public void setId(OrderDetailId id) {
-		this.id = id;
 	}
 
 	public Book getBook() {

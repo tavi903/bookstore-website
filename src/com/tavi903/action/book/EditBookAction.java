@@ -1,6 +1,7 @@
 package com.tavi903.action.book;
 
 import static com.tavi903.utils.ProjectUtils.getFromCache;
+import static com.tavi903.utils.ProjectUtils.getUserLogged;
 import static com.tavi903.utils.ProjectUtils.loadJsp;
 
 import java.io.IOException;
@@ -47,7 +48,7 @@ public class EditBookAction implements BaseAction {
 		}
 		
 		Book book = Book.builder()
-				.bookId(Long.parseLong(request.getParameter("bookId")))
+				.id(Long.parseLong(request.getParameter("bookId")))
 				.title(request.getParameter("title"))
 				.author(request.getParameter("author"))
 				.category(category)
@@ -69,7 +70,7 @@ public class EditBookAction implements BaseAction {
 
 		}
 
-		bookService.update(book);
+		bookService.update(book, getUserLogged(request));
 		
 		/* Add Request Attributes */
 

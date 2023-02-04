@@ -20,7 +20,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.tavi903.dao.UserDAO;
 import com.tavi903.entity.User;
 
 public class UserDAOTest {
@@ -37,11 +36,8 @@ public class UserDAOTest {
 	
 	@BeforeClass
 	public static void setUpClass() {
-		
 		userDAO = new UserDAO();
-		
 		validator = Validation.buildDefaultValidatorFactory().getValidator();
-			
 	}
 	
 	@Before
@@ -63,7 +59,7 @@ public class UserDAOTest {
 		user.setFullName("Diocleziano");
 		user.setPassword("password");
 		
-		User userSavedToDB = userDAO.create(user);
+		User userSavedToDB = userDAO.create(user, "test");
 		assertTrue(Objects.nonNull(userSavedToDB));
 		
 	}
@@ -84,7 +80,7 @@ public class UserDAOTest {
 	public void updateUser() throws Exception {
 		User user = userDAO.find(1).get();
 		user.setEmail("cesare.augusto@gmail.com");
-		userDAO.update(user);
+		userDAO.update(user, "test");
 		assertTrue(userDAO.find(1).get().equals(user));
 	}
 	
@@ -104,8 +100,8 @@ public class UserDAOTest {
 	@Test
 	public void deleteUser() throws Exception {
 		User user = userDAO.find(2).get();
-		userDAO.delete(user.getUserId());
-		Optional<User> userNotPresent = userDAO.find(user.getUserId());
+		userDAO.delete(user.getId());
+		Optional<User> userNotPresent = userDAO.find(user.getId());
 		assertFalse(userNotPresent.isPresent());
 	}
 	
@@ -116,17 +112,13 @@ public class UserDAOTest {
 	
 	@Test
 	public void getAllUsers() throws Exception {
-		
 		List<User> users = userDAO.findAll();
-		
 		for(User user: usersInDb) {
-			assertTrue(users.contains(user));
+			assertTrue(containsUser(users, user));
 		}
-		
 		for(User user: users) {
-			assertTrue(usersInDb.contains(user));
+			assertTrue(containsUser(usersInDb, user));
 		}
-		
 	}
 	
 	@Test
@@ -143,6 +135,14 @@ public class UserDAOTest {
 	@Test
 	public void userCannotLogin() throws Exception {
 		assertFalse(userDAO.checkUserCredential("nerone@gmail.com", "RomeIsOld"));
+	}
+	
+	private boolean containsUser(List<User> users, User user) {
+		for(User u : users) {
+			if(u.getEmail().equals(user.getEmail()) && u.getFullName().equals(user.getFullName()) && u.getPassword().contains(user.getPassword()))
+				return true;
+		}
+		return false;
 	}
 
 }

@@ -16,8 +16,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.tavi903.dao.BookDAO;
-import com.tavi903.dao.CategoryDAO;
 import com.tavi903.entity.Book;
 import com.tavi903.entity.Category;
 
@@ -25,37 +23,32 @@ public class BookDAOTest {
 	
 	private static BookDAO bookDAO;
 	private static EntityManager entityManager;
-	private static List<Category> categories;
 	private static List<Book> books;
 	
 	@BeforeClass
 	public static void setUpClass() {
-		
 		bookDAO = new BookDAO();
-		categories = new CategoryDAO().findAll();
-		
+		CategoryDAO categoryDAO = new CategoryDAO();
+		categoryDAO.getEntityManager().getTransaction().begin();
+		List<Category> categories = new CategoryDAO().findAll();
 		books = Arrays.asList(
-				
 				Book.builder()
 				.title("The Light We Carry: Overcoming in Uncertain Times").author("Michelle Obama")
 				.isbn("0593237463").publishDate(Date.valueOf("2022-11-15"))
 				.category(categories.stream().filter(c -> c.getName().equals("Self Improvement"))
 				.findFirst().get()).price(15.95f).build(),
-				
 				Book.builder()
 				.title("Atomic Habits").author("James Clear")
 				.isbn("0735211299").publishDate(Date.valueOf("2018-10-16"))
 				.category(categories.stream().filter(c -> c.getName().equals("Self Improvement"))
 				.findFirst().get()).price(11.98f).build(),
-				
 				Book.builder()
 				.title("The Very Hungry Caterpillar").author("Eric Carle")
 				.isbn("0399226907").publishDate(Date.valueOf("1994-03-23"))
 				.category(categories.stream().filter(c -> c.getName().equals("Children"))
 				.findFirst().get()).price(8.99f).build()
-		
 		);
-			
+		categoryDAO.getEntityManager().getTransaction().commit();
 	}
 	
 	@Before
@@ -101,6 +94,7 @@ public class BookDAOTest {
 	
 	@Test
 	public void countSearchSelfImprovementBooks() {
+		List<Category> categories = new CategoryDAO().findAll();
 		Map<String, Object> params = initSearchParams();
 		params.put("category", categories.stream().filter(c -> c.getName().equals("Self Improvement")).findFirst().get());
 		long valueExpected = books.stream().filter(b -> b.getCategory().equals((Category) params.get("category"))).count();

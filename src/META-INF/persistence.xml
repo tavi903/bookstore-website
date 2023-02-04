@@ -6,13 +6,24 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 
 	<persistence-unit name="bookstoredb" transaction-type="RESOURCE_LOCAL">
-	    <jar-file>target</jar-file>
+	
+		<class>com.tavi903.entity.Book</class>
+		<class>com.tavi903.entity.BookOrder</class>
+		<class>com.tavi903.entity.Category</class>
+		<class>com.tavi903.entity.Customer</class>
+		<class>com.tavi903.entity.Log</class>
+		<class>com.tavi903.entity.OrderDetail</class>
+		<class>com.tavi903.entity.OrderDetailId</class>
+		<class>com.tavi903.entity.Review</class>
+		<class>com.tavi903.entity.User</class>
+	
 		<properties>
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:mysql://localhost:3306/bookstoredb" />
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password" value="password" />
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+		    <property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLInnoDBDialect"/>
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="true" />

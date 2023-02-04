@@ -9,7 +9,7 @@ import com.tavi903.config.ApplicationConfig;
 import com.tavi903.entity.Book;
 
 @Singleton
-public class BookDAO extends GenericDAO<Book> {
+public class BookDAO extends BaseDAO<Book> {
 
 	public BookDAO() {
 		super(ApplicationConfig.entityManagerFactory, Book.class);

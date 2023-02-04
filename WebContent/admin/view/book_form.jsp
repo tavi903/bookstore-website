@@ -80,7 +80,7 @@
 		
 		<c:if test="${book != null}">
 			<form action="multipart?action=${ActionConfig.EDIT_BOOK}" autocomplete="off" method="post" enctype="multipart/form-data">
-				<input hidden="true" name="bookId" value="${book.bookId}"/>
+				<input hidden="true" name="bookId" value="${book.id}"/>
 				<input hidden="true" name="lastUpdate" value="${book.lastUpdate}"/>
 				<table>
 					<tr>

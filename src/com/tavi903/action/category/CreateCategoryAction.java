@@ -35,7 +35,7 @@ public class CreateCategoryAction implements BaseAction {
 		boolean isDeleted = Boolean.parseBoolean(request.getParameter("isDeleted"));
 		Category category = new Category(name, isDeleted);
 
-		categoryService.create(category);
+		categoryService.create(category, getUserLogged(request));
 		
 		long totalCategories = (long) getFromCache(request, "totalCategories");
 		List<Category> categories = categoryService.findAll(1, pageSize);

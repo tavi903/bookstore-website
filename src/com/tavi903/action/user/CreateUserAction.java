@@ -36,7 +36,7 @@ public class CreateUserAction implements BaseAction {
 		String password = request.getParameter("password");
 		User user = new User(email, password, fullName);
 
-		userService.create(user);
+		userService.create(user, getUserLogged(request));
 		
 		long totalUsers = userService.count();
 		List<User> listUsers = userService.findAll(1, pageSize);

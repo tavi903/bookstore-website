@@ -1,5 +1,7 @@
 package com.tavi903.dao;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,13 +12,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
-public abstract class GenericDAO<E> {
+import com.tavi903.entity.BaseEntity;
+
+public abstract class BaseDAO<E extends BaseEntity> {
 
 	private final Class<E> type;
 	private final EntityManagerFactory entityManagerFactory;
-	private ThreadLocal<EntityManager> threadLocal;
+	private static ThreadLocal<EntityManager> threadLocal;
 
-	public GenericDAO(EntityManagerFactory entityManagerFactory, Class<E> type) {
+	public BaseDAO(EntityManagerFactory entityManagerFactory, Class<E> type) {
 		this.type = type;
 		this.entityManagerFactory = entityManagerFactory;
 	}
@@ -28,7 +32,9 @@ public abstract class GenericDAO<E> {
 		return threadLocal.get();
 	}
 
-	public final E create(E entity) {
+	public final E create(E entity, String userEmail) {
+		entity.setCreatedBy(userEmail);
+		entity.setCreatedAt(Timestamp.from(Instant.now()));
 		getEntityManager().persist(entity);
 		return entity;
 	}
@@ -38,10 +44,9 @@ public abstract class GenericDAO<E> {
 		return entityMaybe;
 	}
 
-	public final E update(E entity) {
+	public final E update(E entity, String userEmail) {
+		entity.setUpdatedBy(userEmail);
 		getEntityManager().merge(entity);
-		getEntityManager().flush();
-		getEntityManager().detach(entity);
 		return entity;
 	}
 
@@ -77,20 +82,15 @@ public abstract class GenericDAO<E> {
 	}
 	
 	public final Object findWithNamedQuery(String queryName, Map<String, Object> parameters, Integer page, Integer pageSize, boolean isResultList) {
-
 		Query query = getEntityManager().createNamedQuery(queryName);
-		
 		if(!Objects.isNull(parameters)) {
 			parameters.forEach((name, value) -> query.setParameter(name, value));
 		}
-		
 		if(!Objects.isNull(page) && !Objects.isNull(pageSize)) {
 			query.setFirstResult((page - 1) * pageSize);
 			query.setMaxResults(pageSize);
 		}
-		
 		Object result = (isResultList == true) ? query.getResultList() : query.getSingleResult();
-
 		return result;
 	}
 	

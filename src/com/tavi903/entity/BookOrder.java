@@ -1,68 +1,40 @@
 package com.tavi903.entity;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "book_order")
-public class BookOrder {
+public class BookOrder extends BaseEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "order_id", unique = true, nullable = false)
-	private int orderId;
-
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "customer_id", nullable = false)
 	private Customer customer;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "order_date", nullable = false, length = 19)
+	@Column(name = "order_date")
 	private Date orderDate;
-
-	@Column(name = "shipping_address", nullable = false, length = 256)
+	@Column(name = "shipping_address")
 	private String shippingAddress;
-
-	@Column(name = "recipient_name", nullable = false, length = 30)
+	@Column(name = "recipient_name")
 	private String recipientName;
-
-	@Column(name = "recipient_phone", nullable = false, length = 15)
+	@Column(name = "recipient_phone")
 	private String recipientPhone;
-
-	@Column(name = "payment_method", nullable = false, length = 20)
+	@Column(name = "payment_method")
 	private String paymentMethod;
-
-	@Column(name = "total", nullable = false, precision = 12, scale = 0)
-	private float total;
-
-	@Column(name = "status", nullable = false, length = 20)
+	private Float total;
 	private String status;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "bookOrder")
 	private Set<OrderDetail> orderDetails = new HashSet<OrderDetail>(0);
 
 	public BookOrder() {
-	}
-
-	public int getOrderId() {
-		return this.orderId;
-	}
-
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
 	}
 
 	public Customer getCustomer() {

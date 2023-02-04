@@ -6,7 +6,7 @@ import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 import javax.persistence.EntityManager;
 
-import com.tavi903.service.GenericService;
+import com.tavi903.service.BaseService;
 
 @Transactional
 @Priority(Interceptor.Priority.PLATFORM_AFTER+10)
@@ -16,9 +16,10 @@ public class TransactionInterceptor {
 	@AroundInvoke
 	public Object manageTransaction(InvocationContext invocationContext) throws Exception {
 		
-	    GenericService<?> genericService = (GenericService<?>) invocationContext.getTarget();
+	    BaseService<?> genericService = (BaseService<?>) invocationContext.getTarget();
 		EntityManager entityManager= genericService.getGenericDAO().getEntityManager();
 		
+		entityManager.clear();
 		entityManager.getTransaction().begin();
 		
 		Object result;

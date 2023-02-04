@@ -53,7 +53,7 @@
 		</c:if>
 		<c:if test="${user!=null}">
 			<form action="view?action=${ActionConfig.EDIT_USER}" method="post"> <!-- onsubmit="return validateFormInput()" -->
-				<input hidden="true" name="userId" value="${user.userId}" />
+				<input hidden="true" name="userId" value="${user.id}" />
 				<input hidden="true" name="lastUpdate" value="${user.lastUpdate}"/>
 				<table>
 					<tr>

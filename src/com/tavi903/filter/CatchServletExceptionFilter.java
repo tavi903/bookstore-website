@@ -35,7 +35,6 @@ public class CatchServletExceptionFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		
 		try {
 			chain.doFilter(request, response);
 		} catch(BookStoreException e) {
@@ -52,9 +51,8 @@ public class CatchServletExceptionFilter implements Filter {
 			loadMessageJsp(request, response, "This entity has been modified by another user!");
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.toString()+"\nStackTrace:\n"+ExceptionUtils.getStackTrace(e), e);
-			loadMessageJsp(request, response, "Errore :(");
+			loadMessageJsp(request, response, "Error :(");
 		}
-		
 	}
 	
 }

@@ -7,7 +7,7 @@ import com.tavi903.dao.UserDAO;
 import com.tavi903.entity.User;
 
 @Singleton
-public class UserService extends GenericService<User> {
+public class UserService extends BaseService<User> {
 
 	private final UserDAO userDAO;
 

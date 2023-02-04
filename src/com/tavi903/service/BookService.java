@@ -10,7 +10,7 @@ import com.tavi903.dao.BookDAO;
 import com.tavi903.entity.Book;
 
 @Singleton
-public class BookService extends GenericService<Book> {
+public class BookService extends BaseService<Book> {
 
 	private final BookDAO bookDAO;
 

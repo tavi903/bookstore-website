@@ -36,10 +36,11 @@ public class EditCategoryAction implements BaseAction {
 		boolean isDeleted = Boolean.parseBoolean(request.getParameter("isDeleted"));
 
 		Category category = new Category(name, isDeleted);
-		category.setCategoryId(Integer.parseInt(request.getParameter("categoryId")));
+		category.setId(Long.parseLong(request.getParameter("categoryId")));
+		String temp = request.getParameter("lastUpdate");
 		category.setLastUpdate(Timestamp.valueOf(request.getParameter("lastUpdate")));
 
-		categoryService.update(category);
+		categoryService.update(category, getUserLogged(request));
 
 		long totalCategories = (long) getFromCache(request, "totalCategories");
 		List<Category> categories = categoryService.findAll(1, pageSize);

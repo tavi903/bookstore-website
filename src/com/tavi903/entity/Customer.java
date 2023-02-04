@@ -6,9 +6,6 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -17,12 +14,7 @@ import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "customer", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
-public class Customer {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "customer_id", unique = true, nullable = false)
-	private int customerId;
+public class Customer extends BaseEntity {
 
 	@Column(name = "email", unique = true, nullable = false, length = 64)
 	private String email;
@@ -59,14 +51,6 @@ public class Customer {
 	private Set<BookOrder> bookOrders = new HashSet<BookOrder>();
 
 	public Customer() {
-	}
-
-	public int getCustomerId() {
-		return this.customerId;
-	}
-
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
 	}
 
 	public String getEmail() {

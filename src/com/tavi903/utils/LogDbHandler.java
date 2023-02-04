@@ -5,18 +5,16 @@ import java.util.logging.LogRecord;
 import java.util.logging.StreamHandler;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import com.tavi903.config.ApplicationConfig;
 import com.tavi903.entity.Log;
 
 public class LogDbHandler extends StreamHandler {
 	
-	private final static int MAX_CHAR_STACKTRACE = 4096;
-	
 	@Override
 	public void publish(LogRecord record) {
-		
 		Log log = Log.builder()
 					.date(Timestamp.from(record.getInstant()))
 					.exception(record.getThrown() == null ? "" : record.getThrown().getClass().getName())
@@ -24,9 +22,7 @@ public class LogDbHandler extends StreamHandler {
 				    .message(record.getMessage())
 				    .stackTrace(record.getThrown() == null ? "" : printStackTrace(record))
 					.build();
-		
 		create(log);
-
 	}
 
 	@Override
@@ -51,8 +47,12 @@ public class LogDbHandler extends StreamHandler {
 		for(StackTraceElement element : stackTrace) {
 			builder.append(element.toString()+"\n");
 		}
-		
-		return builder.toString().substring(0, MAX_CHAR_STACKTRACE);
+		builder.append("Caused by:\n");
+		StackTraceElement[] stackTraceRootCause = ExceptionUtils.getRootCause(record.getThrown()).getStackTrace();
+		for(StackTraceElement element : stackTraceRootCause) {
+			builder.append(element.toString()+"\n");
+		}
+		return builder.toString();
 	}
 
 }

@@ -21,7 +21,7 @@ VALUES (
 	'0593237463',
 	15.95,
 	PARSEDATETIME('15/11/2022','dd/mm/yyyy'),
-	(SELECT category_id FROM bookstoredb.category WHERE name = 'Self Improvement')
+	(SELECT id FROM bookstoredb.category WHERE name = 'Self Improvement')
 );
 
 INSERT INTO bookstoredb.book (title, author, description, isbn, price, publish_date, category_id)
@@ -44,7 +44,7 @@ VALUES (
 	'0735211299',
 	11.98,
 	PARSEDATETIME('16/10/2018','dd/mm/yyyy'),
-	(SELECT category_id FROM bookstoredb.category WHERE name = 'Self Improvement')
+	(SELECT id FROM bookstoredb.category WHERE name = 'Self Improvement')
 );
 
 INSERT INTO bookstoredb.book (title, author, description, isbn, price, publish_date, category_id)
@@ -55,5 +55,5 @@ VALUES (
 	'0399226907',
 	8.99,
 	PARSEDATETIME('23/03/1994','dd/mm/yyyy'),
-	(SELECT category_id FROM bookstoredb.category WHERE name = 'Children')
+	(SELECT id FROM bookstoredb.category WHERE name = 'Children')
 );

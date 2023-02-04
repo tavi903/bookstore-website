@@ -1,6 +1,5 @@
 package com.tavi903.config;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManagerFactory;
@@ -16,7 +15,8 @@ public class ApplicationConfig {
 	
 	/* ------------------------ */
 	
-	public static EntityManagerFactory entityManagerFactory =  Persistence.createEntityManagerFactory("bookstoredb");
+	public static EntityManagerFactory entityManagerFactory =    
+			Persistence.createEntityManagerFactory("bookstoredb");
 	
 	/* Cache */
 	
@@ -24,7 +24,6 @@ public class ApplicationConfig {
 
 	/* ------------------------ */
 	
-	public static final Logger logger = Logger.getLogger("BookStore Logger");
-	public static final Level DEFAULT_LEVEL = Level.WARNING;
+	public static Logger logger = Logger.getLogger("Bookstore - Logger");;
 	
 }

@@ -36,8 +36,8 @@
 					<td>${user.email}</td>
 					<td>${user.fullName}</td>
 					<td>
-						<a href="view?action=${ActionConfig.GET_USER}&id=${user.userId}">Edit</a>
-						<a href="javascript:confirmDelete(${user.userId})">Delete</a>
+						<a href="view?action=${ActionConfig.GET_USER}&id=${user.id}">Edit</a>
+						<a href="javascript:confirmDelete(${user.id})">Delete</a>
 					</td>
 				</tr>
 			</c:forEach>
